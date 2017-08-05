@@ -1,0 +1,16 @@
+.button1:hover {
+	color: blue;
+	background: green;
+}
+
+.button2:focus {
+	background-color: red;
+}
+
+.button3:active {
+	background-color: black;
+}
+
+.button4: {
+	background-color: lime;
+}
