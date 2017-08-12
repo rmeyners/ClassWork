@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+    Computer chose: <span id="spanComputerChoice"></span><br>
+    User chose: <span id="spanUserChoice"></span><br>
+    Winner: <span id="spanWinner"></span><br>
+    User wins: <span id="spanUserWins">0</span><br/>
+    Computer wins: <span id="spanComputerWins">0</span><br/>
+    
+    <script type="text/javascript">
+    var computerChoice;
+    var userChoice;
+    var winner;
+    var computerWins = 0;
+    var userWins = 0;
+    var spanComputerChoice = document.getElementById("spanComputerChoice");
+    var spanUserChoice = document.getElementById("spanUserChoice");
+    var spanWinner = document.getElementById("spanWinner");
+    var spanUserWins = document.getElementById("spanUserWins");
+    var spanComputerWins = document.getElementById("spanComputerWins");
+    var outcomes = ['r', 'p', 's'];
+    document.onkeyup = function(event) {
+      var keyHit = event.key;
+      userChoice = keyHit;
+      var index = Math.floor(Math.random() * outcomes.length);
+      computerChoice = outcomes[index];
+      
+      spanComputerChoice.textContent = computerChoice;
+      spanUserChoice.textContent = userChoice;
+      if(userChoice == 'r') {
+        if (computerChoice == 'r') {
+          spanWinner.textContent = "tie";
+        } else if (computerChoice == 'p') {
+          computerWins = computerWins + 1; //computerWins++;
+          spanWinner.textContent = "computer";
+        } else if (computerChoice == 's') {
+          userWins = userWins + 1; //computerWins++;
+          spanWinner.textContent = "user";
+        }
+      } else if (userChoice == 'p') {
+        if (computerChoice == 'p') {
+          spanWinner.textContent = "tie";
+        } else if (computerChoice == 's') {
+          computerWins = computerWins + 1; //computerWins++;
+          spanWinner.textContent = "computer";
+        } else if (computerChoice == 'r') {
+          userWins = userWins + 1; //computerWins++;
+          spanWinner.textContent = "user";
+        }
+      } else if (userChoice == 's') {
+        if (computerChoice == 's') {
+          spanWinner.textContent = "tie";
+        } else if (computerChoice == 'r') {
+          computerWins = computerWins + 1; //computerWins++;
+          spanWinner.textContent = "computer";
+        } else if (computerChoice == 'p') {
+          userWins = userWins + 1; //computerWins++;
+          spanWinner.textContent = "user";
+        }
+      } else {
+        alert("invalid selection, you need to hit r, p, s");
+      }
+      spanUserWins.textContent = userWins;
+      spanComputerWins.textContent = computerWins;
+    }
+    </script>
+</body>
+</html>
