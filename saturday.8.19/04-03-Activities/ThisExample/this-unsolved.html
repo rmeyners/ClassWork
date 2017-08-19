@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>This Example</title>
+</head>
+<body>
+
+  <h1>Make sure to view the console to see the action!</h1>
+
+  <script type="text/javascript">
+
+    // EXAMPLE ONE:
+    // --------------------------------------------------
+    // What is "this" going to print?
+
+    console.log(this); // this will print window - "this" will equal the global window (global object)
+    // the window wraps everything in the browser!
+
+    // EXAMPLE TWO:
+    // --------------------------------------------------
+    // What is "this" going to print?
+
+    function myFunction() {
+      console.log(this);
+    }
+    myFunction(); // as with example 1, this is not declared by an object show it defaults back to the window
+
+    // EXAMPLE THREE (IMPORTANT):
+    // --------------------------------------------------
+    // What is "someObj.say()" going to print?
+
+    var someObj = {
+      name: "Red Hat",
+      say: function() {
+        console.log(this.name);
+      }
+    };
+    someObj.say(); // this will print red hat, as the object name has been declared. the "this" is contextually referring to the redhat named object.
+
+
+    // EXAMPLE FOUR (BONUS, TRICKY!):
+    // --------------------------------------------------
+    // What is "myObj.yell()" going to print? Why?
+
+    var myObj = {
+      name: "",
+      yell: function() {
+        this.name = "Star Powerup";
+
+        var changeName = function(newName) {
+          this.name = newName;
+        };
+        changeName("Blue Shell");
+        console.log(this);
+      }
+    };
+    myObj.yell(); //
+
+
+    // EXAMPLE FIVE (BONUS, TRICKY!):
+    // --------------------------------------------------
+    // What is "myObj.yell()" going to print? Why?
+
+    var myObj = {
+      name: "",
+      yell: function() {
+
+        // This line is important!
+        var thisObject = this;
+
+        this.name = "Star Powerup";
+        var changeName = function(newName) {
+          thisObject.name = newName;
+        };
+        changeName("Blue Shell");
+        console.log(thisObject);
+      }
+    };
+    myObj.yell();
+
+  </script>
+</body>
+</html>
