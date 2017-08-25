@@ -63,7 +63,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Result</h3>
                 </div>
-                <div class="panel-body results">
+                <div class="panel-body">
                     <h1 id="first-number"></h1>
                     <h1 id="operator"></h1>
                     <h1 id="second-number"></h1>
@@ -80,30 +80,7 @@
 $(document).ready(function(){
 
 // Your code here...
-    $(".number").on("click", function(){
-        // number clicks
-        var numberClick = $(this).attr("value");
-        console.log(numberClick);
-        $("#first-number").append(numberClick); 
 
-    });
-
-    $(".operator").on("click", function(){
-        // operator clicks
-        var operatorClick = $(this).val();
-        console.log(operatorClick);
-        $("#operator").append(operatorClick);
-    });
-
-    $(".equal").on("click", function(){
-        // equals button
-    });
-
-    $(".clear").on("click", function(){
-        console.log($(".panel-body > *"));
-        // clear equation
-        $(".panel-body.results > *").html("");
-    });
 
 });
 
