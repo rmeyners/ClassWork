@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Employee Data Managment</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="employeeDataManagement.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="jumbotron">
+	  <h1>Employee Data Management</h1>
+	  <h2>A Comprehensive Directory of Employee Billable Hours</h2>
+	</div>
+	<br>
+
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    Current Employees
+	  </div>
+	</div>
+
+	<table class="table table-striped" id="myTable">
+  		<tr>
+		    <th>Emplyee Name</th>
+		    <th>Role</th>
+		    <th>Start Date</th>
+		    <th>Months Worked</th>
+		    <th>Monthly Rate ($)</th>
+		    <th>Total Billed ($)</th>
+  		</tr>
+		<tr>
+			<td id="name-display"></td>
+			<td id="role-display"></td>
+			<td id="start-display"></td>
+			<td id="months-display"></td>
+			<td id="rate-display"></td>
+			<td id="billed-display"></td>
+		</tr>
+	</table>
+
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    Add Employee
+	  </div>
+	</div>
+
+	<div class="input-group">
+	  <span class="input-group-addon">Employee Name</span>
+	  <input type="text" class="form-control" id="name-input" placeholder="ex: John Smith" aria-describedby="basic-addon1">
+	</div>
+	<br>
+	<div class="input-group">
+	  <span class="input-group-addon">Role</span>
+	  <input type="text" class="form-control" id="role-input" placeholder="ex: Specializing in ill shit" aria-describedby="basic-addon1">
+	</div>
+	<br>
+	<div class="input-group">
+	  <span class="input-group-addon">Start Date (DD/MM/YY)</span>
+	  <input type="text" class="form-control" id="date-input" placeholder="ex: 01/01/17" aria-describedby="basic-addon1">
+	</div>
+	<br>
+	<div class="input-group">
+	  <span class="input-group-addon">$</span>
+	  <input type="text" class="form-control" id="rate-input" aria-label="Amount (to the nearest dollar)">
+	  <span class="input-group-addon">.00</span>
+	</div>
+	<br>
+	<button type="Submit" class="btn btn-danger">Submit</button>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+
+	<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+	<script>
+
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyA9FJazNRFcex6MnwQEXBD8FYg6ICkclUY",
+	    authDomain: "employeedata-2e89d.firebaseapp.com",
+	    databaseURL: "https://employeedata-2e89d.firebaseio.com",
+	    projectId: "employeedata-2e89d",
+	    storageBucket: "employeedata-2e89d.appspot.com",
+	    messagingSenderId: "318130433693"
+	  };
+	  firebase.initializeApp(config);
+
+	  var database = firebase.database();
+
+	    var name = "";
+	    var role = "";
+	    var startDate = "";
+	    var monthsWorked = "";
+	    var monthlyRate = "";
+	    var totalBilled = "";
+
+	    // Click Button changes what is stored in firebase
+	    $(".btn-danger").on("click", function() {
+	      // Prevent the page from refreshing
+	      event.preventDefault();
+	      console.log("im here");
+	      // Get inputs
+	      name = $("#name-input").val().trim();
+	      role = $("#role-input").val().trim();
+	      startDate = $("#date-input").val().trim();
+	      monthlyRate = $("#rate-input").val().trim();
+
+	      console.log(name);
+	      console.log(role);
+	      console.log(startDate);
+	      console.log(monthlyRate);
+
+	      // Change what is saved in firebase
+	      database.ref().push({
+	        name: name,
+	        role: role,
+	        startDate: startDate,
+	        monthlyRate: monthlyRate,
+
+	      });
+	    });
+
+	    database.ref().on("value", function(snapshot) {
+	    
+	      // Print the initial data to the console.
+	      console.log(snapshot.val());
+
+
+	      // If any errors are experienced, log them to console.
+	    }, function(errorObject) {
+	      console.log("The read failed: " + errorObject.code);
+	    });
+
+
+
+	    database.ref().on("child_added", function(childSnapshot) {
+	    	var userName = childSnapshot.val().name;
+	    	var roleName = childSnapshot.val().role;
+	    	var startName = childSnapshot.val().startDate;
+	    	var monthName = childSnapshot.val().monthsWorked;
+	    	var rateName = childSnapshot.val().monthlyRate;
+	    	var billedName = childSnapshot.val().totalBilled;
+	    	console.log(childSnapshot.val());
+
+	    	// var randomDate = "01/01/2017";
+	    	// var randomFormat = "MM/DD/YYYY";
+	    	// var convertedDate = moment(randomDate, randomFormat);
+
+	    	// moment(convertedDate).diff(moment(), "years");
+	    	// moment(convertedDate).diff(moment(), "months");
+
+	    	// var newDate = moment("01/01/2017", randomFormat);
+	    	
+
+	    	$('#myTable tr:last').after('<tr><td>' + userName + '</td><td>' + roleName + '</td><td>' + startName + '</td><td>' + monthName + '</td><td>' + rateName + '</td><td>' + billedName + '</td></tr>');
+	    	
+	    });
+
+	</script>
+
+    
+  </body>
+</html>

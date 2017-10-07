@@ -1,0 +1,14 @@
+body {
+	padding: 10px;
+	color: black;
+}
+.jumbotron {
+	text-align: center;
+	color: white !important;
+	background-color: black !important;
+}
+
+.panel-body {
+	background-color: black;
+	color: white;
+}
