@@ -9,3 +9,4 @@ firstClass.addStudent("Jacob", "Coding", 3.87);
 
 console.log(firstClass);
 
+

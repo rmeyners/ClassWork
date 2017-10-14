@@ -18,3 +18,16 @@
 
 // * BONUS: Make it so that that your application can take in user input to add new classes and new students to those classes.
 
+// requiring our Classroom module exported from classroom.js
+var Classroom = require("./Classroom.js");
+
+// creating and storing a new classroom object
+var firstClass = new Classroom("Ahmed", 3187);
+
+// calling the addStudent method on our firstClass object
+firstClass.addStudent("Jacob", "Coding", 3.87);
+firstClass.addStudent("Robert", "Marketing", 3.5);
+
+console.log(firstClass);
+
+
